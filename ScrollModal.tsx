@@ -30,6 +30,7 @@ export const ScrollModal = (props: Props) => {
       onBackdropPress={props.onDismiss}>
       <View style={styles.container}>
         <ScrollView
+          testID="scroll_view"
           ref={testRef}
           scrollEventThrottle={16}
           contentOffset={contentOffset}
@@ -44,7 +45,7 @@ export const ScrollModal = (props: Props) => {
           ))}
         </ScrollView>
 
-        <Text>random non scroll item</Text>
+        <Text testID="scroll_fixed_text">random non scroll item</Text>
       </View>
     </Modal>
   );

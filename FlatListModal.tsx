@@ -30,6 +30,7 @@ export const FlatListModal = (props: Props) => {
       onBackdropPress={props.onDismiss}>
       <View style={styles.container}>
         <FlatList
+          testID="flatlist_view"
           ref={testRef}
           scrollEventThrottle={16}
           contentOffset={contentOffset}
@@ -47,7 +48,7 @@ export const FlatListModal = (props: Props) => {
           style={styles.scrollView}
         />
 
-        <Text>random non scroll item</Text>
+        <Text testID="flatlist_fixed_text">random non scroll item</Text>
       </View>
     </Modal>
   );
