@@ -1,4 +1,4 @@
-describe('RNModalTest App', () => {
+describe('RNModalTest android swipe', () => {
   beforeEach(async () => {
     await device.reloadReactNative();
   });
@@ -9,7 +9,12 @@ describe('RNModalTest App', () => {
     await expect(element(by.id('scroll_view'))).toBeVisible();
     await expect(element(by.id('scroll_fixed_text'))).toBeVisible();
 
-    await element(by.id('scroll_modal_view')).swipe('down', 'fast', 1.0);
+    if (/android/i.test(process.env.configuration)) {
+      await element(by.id('scroll_modal_view')).swipe('down', 'fast', 1.0);
+    } else {
+      await element(by.id('scroll_fixed_text')).swipe('down', 'fast');
+    }
+
     await expect(element(by.id('scroll_view'))).toBeNotVisible();
   });
 
@@ -17,9 +22,13 @@ describe('RNModalTest App', () => {
     await element(by.id('btn_flatlist_modal_toggle')).tap();
 
     await expect(element(by.id('flatlist_view'))).toBeVisible();
-    await expect(element(by.id('scroll_fixed_text'))).toBeVisible();
+    await expect(element(by.id('flatlist_fixed_text'))).toBeVisible();
 
-    await element(by.id('flatlist_modal_view')).swipe('down', 'fast', 1.0);
+    if (/android/i.test(process.env.configuration)) {
+      await element(by.id('flatlist_modal_view')).swipe('down', 'fast', 1.0);
+    } else {
+      await element(by.id('flatlist_fixed_text')).swipe('down', 'fast');
+    }
 
     await expect(element(by.id('flatlist_view'))).toBeNotVisible();
   });
