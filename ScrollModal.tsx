@@ -23,12 +23,11 @@ export const ScrollModal = (props: Props) => {
       }}
       scrollOffset={contentOffset.y}
       propagateSwipe={true}
-      coverScreen={false}
+      coverScreen={true}
       isVisible={props.visible}
       onSwipeComplete={props.onDismiss}
-      swipeDirection="down"
-      onBackdropPress={props.onDismiss}>
-      <View style={styles.container}>
+      swipeDirection="down">
+      <View style={styles.container} testID="scroll_modal_view">
         <ScrollView
           testID="scroll_view"
           ref={testRef}
