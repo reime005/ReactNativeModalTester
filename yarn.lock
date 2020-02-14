@@ -5658,9 +5658,9 @@ react-native-animatable@1.3.3:
   dependencies:
     prop-types "^15.7.2"
 
-"react-native-modal@git+ssh://git@github.com/reime005/react-native-modal#38351ea":
+"react-native-modal@git://github.com/reime005/react-native-modal#38351ea":
   version "11.5.3"
-  resolved "git+ssh://git@github.com/reime005/react-native-modal#38351ea604a18f2f38d46597c9ddbcc11a40e709"
+  resolved "git://github.com/reime005/react-native-modal#38351ea604a18f2f38d46597c9ddbcc11a40e709"
   dependencies:
     prop-types "^15.6.2"
     react-native-animatable "1.3.3"
