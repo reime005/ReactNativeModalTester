@@ -1,6 +1,7 @@
 describe('RNModalTest android swipe', () => {
   beforeEach(async () => {
-    await device.reloadReactNative();
+    await device.terminateApp();
+    await device.launchApp();
   });
 
   it('should hide scroll modal via swipe down', async () => {

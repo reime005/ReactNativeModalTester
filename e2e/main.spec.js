@@ -1,6 +1,7 @@
 describe('RNModalTest App', () => {
   beforeEach(async () => {
-    await device.reloadReactNative();
+    await device.terminateApp();
+    await device.launchApp();
   });
 
   it('should have the modal toggle buttons', async () => {
@@ -9,6 +10,7 @@ describe('RNModalTest App', () => {
   });
 
   it('should scroll scrollview in modal to bottom', async () => {
+    await expect(element(by.id('btn_scroll_modal_toggle'))).toBeVisible();
     await element(by.id('btn_scroll_modal_toggle')).tap();
 
     await expect(element(by.id('scroll_view'))).toBeVisible();
@@ -21,6 +23,9 @@ describe('RNModalTest App', () => {
   });
 
   it('should scroll flatlist in modal to bottom', async () => {
+    await device.reloadReactNative();
+
+    await expect(element(by.id('btn_flatlist_modal_toggle'))).toBeVisible();
     await element(by.id('btn_flatlist_modal_toggle')).tap();
 
     await expect(element(by.id('flatlist_view'))).toBeVisible();
