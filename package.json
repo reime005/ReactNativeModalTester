@@ -1,6 +1,7 @@
 {
   "name": "ReactNativeModalTest",
   "version": "0.0.1",
+  "description": "Simple Test App for react-native-modal",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
