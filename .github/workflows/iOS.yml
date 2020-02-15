@@ -1,4 +1,4 @@
-name: iOS E2E
+name: iOS
 
 on: [push, pull_request]
 
