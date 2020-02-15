@@ -3,18 +3,23 @@
  * https://github.com/facebook/react-native
  *
  * @format
- * @flow
  */
 
 import React, { useState } from 'react';
 import { Button, SafeAreaView, StyleSheet, View } from 'react-native';
 import { FlatListModal } from './FlatListModal';
 import { ScrollModal } from './ScrollModal';
+import { LegacyScrollModal } from './LegacyScrollModal';
 
-const App: () => React$Node = () => {
+const App = () => {
+  const [legacyScrollModalVisible, setLegacyScrollModalVisible] = useState(
+    false,
+  );
   const [scrollModalVisible, setScrollModalVisible] = useState(false);
   const [flatListModalVisible, setFlatListModalVisible] = useState(false);
 
+  const toggleLegacyScrollModal = () =>
+    setLegacyScrollModalVisible(!legacyScrollModalVisible);
   const toggleScrollModal = () => setScrollModalVisible(!scrollModalVisible);
   const toggleFlatListModal = () =>
     setFlatListModalVisible(!flatListModalVisible);
@@ -23,6 +28,11 @@ const App: () => React$Node = () => {
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.container}>
         <View style={styles.modalContainer}>
+          <LegacyScrollModal
+            visible={legacyScrollModalVisible}
+            onDismiss={toggleLegacyScrollModal}
+          />
+
           <ScrollModal
             visible={scrollModalVisible}
             onDismiss={toggleScrollModal}
@@ -33,6 +43,12 @@ const App: () => React$Node = () => {
             onDismiss={toggleFlatListModal}
           />
         </View>
+
+        <Button
+          testID="btn_legacy_scroll_modal_toggle"
+          title="Toggle Legacy Scroll Modal"
+          onPress={toggleLegacyScrollModal}
+        />
 
         <Button
           testID="btn_scroll_modal_toggle"

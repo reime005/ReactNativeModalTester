@@ -1,4 +1,4 @@
-describe('RNModalTest android swipe', () => {
+describe('Test App', () => {
   beforeEach(async () => {
     await device.terminateApp();
     await device.launchApp();
@@ -16,7 +16,9 @@ describe('RNModalTest android swipe', () => {
       await element(by.id('scroll_fixed_text')).swipe('down', 'fast');
     }
 
-    await expect(element(by.id('scroll_view'))).toBeNotVisible();
+    await waitFor(element(by.id('flatlist_view')))
+      .toBeNotVisible()
+      .withTimeout(2000);
   });
 
   it('should hide flatlist modal via swipe down', async () => {
@@ -31,6 +33,8 @@ describe('RNModalTest android swipe', () => {
       await element(by.id('flatlist_fixed_text')).swipe('down', 'fast');
     }
 
-    await expect(element(by.id('flatlist_view'))).toBeNotVisible();
+    await waitFor(element(by.id('flatlist_view')))
+      .toBeNotVisible()
+      .withTimeout(2000);
   });
 });

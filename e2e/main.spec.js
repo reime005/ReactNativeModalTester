@@ -1,4 +1,4 @@
-describe('RNModalTest App', () => {
+describe('Test App', () => {
   beforeEach(async () => {
     await device.terminateApp();
     await device.launchApp();
@@ -7,6 +7,9 @@ describe('RNModalTest App', () => {
   it('should have the modal toggle buttons', async () => {
     await expect(element(by.id('btn_flatlist_modal_toggle'))).toBeVisible();
     await expect(element(by.id('btn_scroll_modal_toggle'))).toBeVisible();
+    await expect(
+      element(by.id('btn_legacy_scroll_modal_toggle')),
+    ).toBeVisible();
   });
 
   it('should scroll scrollview in modal to bottom', async () => {
@@ -23,8 +26,6 @@ describe('RNModalTest App', () => {
   });
 
   it('should scroll flatlist in modal to bottom', async () => {
-    await device.reloadReactNative();
-
     await expect(element(by.id('btn_flatlist_modal_toggle'))).toBeVisible();
     await element(by.id('btn_flatlist_modal_toggle')).tap();
 
@@ -35,5 +36,19 @@ describe('RNModalTest App', () => {
 
     await element(by.id('flatlist_view')).scrollTo('bottom');
     await expect(element(by.id('scroll_item_49'))).toBeVisible();
+  });
+
+  it('should keep modal open when scrolling up', async () => {
+    await expect(
+      element(by.id('btn_legacy_scroll_modal_toggle')),
+    ).toBeVisible();
+    await element(by.id('btn_legacy_scroll_modal_toggle')).tap();
+
+    await expect(element(by.id('modal'))).toBeVisible();
+
+    await element(by.id('legacy_scroll_view')).scroll(500, 'down');
+    await element(by.id('legacy_scroll_view')).scroll(200, 'up');
+
+    await expect(element(by.id('modal'))).toBeVisible();
   });
 });
