@@ -46,8 +46,8 @@ describe('Test App', () => {
 
     await expect(element(by.id('modal'))).toBeVisible();
 
-    await element(by.id('legacy_scroll_view')).scroll(500, 'down');
-    await element(by.id('legacy_scroll_view')).scroll(200, 'up');
+    await element(by.id('legacy_scroll_view')).scrollTo('bottom');
+    await element(by.id('legacy_scroll_view')).scrollTo('top');
 
     await expect(element(by.id('modal'))).toBeVisible();
   });
