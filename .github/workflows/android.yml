@@ -6,6 +6,9 @@ jobs:
   build:
     runs-on: macos-latest
     timeout-minutes: 30
+    strategy:
+      matrix:
+        emu-version: ["system-images;android-27;google_apis;x86", "system-images;android-28;google_apis_playstore;x86"]
 
     steps:
     - name: Checkout project
@@ -28,8 +31,8 @@ jobs:
     - name: Download Android Emulator Image
       if: "!contains(github.event.head_commit.message, '[skip ci]')"
       run: |
-        echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose "system-images;android-27;google_apis;x86"
-        $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k "system-images;android-27;google_apis;x86" -b "x86" -c 1G -d 7 -f
+        echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose ${{ matrix.emu-version }}
+        $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k ${{ matrix.emu-version }} -b "x86" -c 1G -d 7 -f
 
     - name: Install node_modules & Deploy
       if: "!contains(github.event.head_commit.message, '[skip ci]')"
