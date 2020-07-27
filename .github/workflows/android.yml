@@ -56,7 +56,7 @@ jobs:
 
     - name: Download Android Emulator Image
       run: |
-        echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose ${{ matrix.emu-version }}
+        echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose "${{ matrix.emu-version }}"
         $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k ${{ matrix.emu-version }} -b "x86" -c 1G -d 7 -f
 
     - name: Create dir
