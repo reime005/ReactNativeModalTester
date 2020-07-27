@@ -4,44 +4,78 @@ on: [push, pull_request]
 
 jobs:
   build:
+    name: Build
     runs-on: macos-latest
-    timeout-minutes: 30
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    timeout-minutes: 20
+
+    steps:
+    - name: Checkout project
+      uses: actions/checkout@v1
+
+    - name: Specify node version
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+
+    - name: Install node_modules & Deploy
+      run: |
+        yarn install --frozen-lockfile
+        yarn detox build -c android.emu.release
+
+    - name: Persist test app
+      uses: actions/upload-artifact@v2
+      with:
+        name: app
+        path: android/app/build/outputs/apk/release/app-release.apk
+
+  test:
+    runs-on: macos-latest
+    name: Test
+    needs: build
+    timeout-minutes: 60
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
         emu-version: ["system-images;android-27;google_apis;x86", "system-images;android-28;google_apis_playstore;x86"]
 
     steps:
     - name: Checkout project
-      if: "!contains(github.event.head_commit.message, '[skip ci]')"
       uses: actions/checkout@v1
 
     - name: Specify node version
-      if: "!contains(github.event.head_commit.message, '[skip ci]')"
       uses: actions/setup-node@v1
       with:
         node-version: 12
 
     - name: Use specific Java version for sdkmanager to work
-      if: "!contains(github.event.head_commit.message, '[skip ci]')"
       uses: joschi/setup-jdk@v1
       with:
         java-version: 'openjdk8'
         architecture: 'x64'
 
     - name: Download Android Emulator Image
-      if: "!contains(github.event.head_commit.message, '[skip ci]')"
       run: |
         echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose ${{ matrix.emu-version }}
         $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k ${{ matrix.emu-version }} -b "x86" -c 1G -d 7 -f
 
-    - name: Install node_modules & Deploy
-      if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    - name: Create dir
+      run: mkdir -p android/app/build/outputs/apk/release/
+
+    - uses: actions/download-artifact@v2
+      with:
+        name: app
+        path: android/app/build/outputs/apk/release/
+
+    - name: Display structure of downloaded files
+      run: ls -R && unzip android/app/build/outputs/apk/release/app.zip
+      working-directory: path/to/artifact
+
+    - name: Install node_modules
       run: |
         yarn install --frozen-lockfile
-        yarn detox build -c android.emu.release
 
     - name: Android test
-      if: "!contains(github.event.head_commit.message, '[skip ci]')"
       timeout-minutes: 10
       run: |
         export PATH=$PATH:$ANDROID_HOME/platform-tools
