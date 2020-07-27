@@ -37,7 +37,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
-        emu-version: ["system-images;android-27;google_apis;x86", "system-images;android-28;google_apis_playstore;x86"]
+        emu-version: ["system-images;android-27;google_apis;x86", "system-images;android-28;google_apis_playstore;x86", "system-images;android-30;google_apis;x86"]
 
     steps:
     - name: Checkout project
@@ -68,8 +68,7 @@ jobs:
         path: android/app/build/outputs/apk/release/
 
     - name: Display structure of downloaded files
-      run: ls -R && unzip android/app/build/outputs/apk/release/app.zip
-      working-directory: path/to/artifact
+      run: unzip android/app/build/outputs/apk/release/app.zip
 
     - name: Install node_modules
       run: |
