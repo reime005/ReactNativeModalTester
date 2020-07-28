@@ -27,7 +27,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: app
-        path: android/app/build/outputs/apk/release/app-release.apk
+        path: android/app/build/
 
   test:
     runs-on: macos-latest
@@ -59,19 +59,13 @@ jobs:
         echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose "${{ matrix.emu-version }}"
         $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k "${{ matrix.emu-version }}" -b "x86" -c 1G -d 7 -f
 
-    - name: Create dir
-      run: mkdir -p android/app/build/outputs/apk/release/
-
     - uses: actions/download-artifact@v2
-      with:
-        name: app
-        path: android/app/build/outputs/apk/release/app.zip
 
     - name: ls
-      run: ls -la android/app/build/outputs/apk/release/
+      run: ls -la .
 
     - name: Display structure of downloaded files
-      run: unzip android/app/build/outputs/apk/release/app.zip
+      run: unzip app.zip -d android/app/
 
     - name: Install node_modules
       run: |
