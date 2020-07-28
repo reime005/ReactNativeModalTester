@@ -26,7 +26,7 @@ jobs:
     - name: Persist test app
       uses: actions/upload-artifact@v2
       with:
-        name: app
+        name: app_build
         path: android/app/build/
 
   test:
@@ -65,7 +65,7 @@ jobs:
       run: ls -la .
 
     - name: Display structure of downloaded files
-      run: unzip app.zip -d android/app/
+      run: mv -f app_build/ android/app/build
 
     - name: Install node_modules
       run: |
