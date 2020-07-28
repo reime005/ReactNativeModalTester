@@ -29,11 +29,13 @@ jobs:
         name: app_build
         path: android/app/build/
 
-    - name: Test persist node_modules
-      uses: actions/upload-artifact@v2
+    - uses: actions/cache@v1
+      id: yarn-cache
       with:
-        name: node_modules
-        path: node_modules/
+        path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
 
   test:
     runs-on: macos-latest
@@ -69,6 +71,10 @@ jobs:
 
     - name: Prepare downloaded files
       run: mv -f app_build/ android/app/build
+
+    - name: Get yarn cache directory path
+      id: yarn-cache-dir-path
+      run: echo "::set-output name=dir::$(yarn cache dir)"
 
     - name: Install node_modules
       run: |
