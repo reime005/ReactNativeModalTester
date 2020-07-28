@@ -11,7 +11,7 @@ jobs:
 
     steps:
     - name: Checkout project
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     - name: Specify node version
       uses: actions/setup-node@v1
@@ -53,7 +53,7 @@ jobs:
 
     steps:
     - name: Checkout project
-      uses: actions/checkout@v1
+      uses: actions/checkout@v2
 
     - name: Specify node version
       uses: actions/setup-node@v1
@@ -85,7 +85,6 @@ jobs:
         yarn install --frozen-lockfile
 
     - name: Android test
-      timeout-minutes: 20
       run: |
         export PATH=$PATH:$ANDROID_HOME/platform-tools
         $ANDROID_HOME/emulator/emulator @emu &
