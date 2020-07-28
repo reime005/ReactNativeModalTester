@@ -65,7 +65,10 @@ jobs:
     - uses: actions/download-artifact@v2
       with:
         name: app
-        path: android/app/build/outputs/apk/release/
+        path: android/app/build/outputs/apk/release/app.zip
+
+    - name: ls
+      run: ls -la android/app/build/outputs/apk/release/
 
     - name: Display structure of downloaded files
       run: unzip android/app/build/outputs/apk/release/app.zip
