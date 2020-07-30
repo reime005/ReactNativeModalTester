@@ -26,9 +26,10 @@
     "@react-native-community/eslint-config": "^0.0.7",
     "@types/detox": "^14.5.2",
     "babel-jest": "^25.1.0",
-    "detox": "^15.2.2",
+    "detox": "^17.3.3",
     "eslint": "^6.8.0",
-    "jest": "^25.1.0",
+    "jest": "^26.x.x",
+    "jest-circus": "^26.x.x",
     "metro-react-native-babel-preset": "^0.58.0",
     "react-test-renderer": "16.9.0"
   },
@@ -36,6 +37,8 @@
     "preset": "react-native"
   },
   "detox": {
+    "specs": "e2e",
+    "runnerConfig": "e2e/config.json",
     "configurations": {
       "ios.sim.release": {
         "binaryPath": "ios/build/Build/Products/Release-iphonesimulator/ReactNativeModalTest.app",
