@@ -49,7 +49,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
-        emu-version: ["system-images;android-28;google_apis_playstore;x86"]
+        emu-version: ["system-images;android-27;google_apis;x86", "system-images;android-27;google_apis;x86", "system-images;android-28;google_apis;x86_64"]
 
     steps:
     - name: Checkout project
@@ -69,7 +69,7 @@ jobs:
     - name: Download Android Emulator Image
       run: |
         echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose "${{ matrix.emu-version }}"
-        $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k "${{ matrix.emu-version }}" -b "x86" -c 1G -d 7 -f
+        $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k "${{ matrix.emu-version }}" -c 1G -d 7 -f
 
     - uses: actions/download-artifact@v2
 
