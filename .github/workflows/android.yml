@@ -50,6 +50,7 @@ jobs:
     strategy:
       matrix:
         emu-version: ["system-images;android-21;google_apis;x86", "system-images;android-23;default;x86_64", "system-images;android-27;google_apis;x86", "system-images;android-28;google_apis;x86_64", "system-images;android-29;google_apis;x86_64", "system-images;android-30;google_apis;x86_64"]
+        emu-device-id: [7, 20, "10.1in WXGA (Tablet)"]
 
     steps:
     - name: Checkout project
@@ -66,10 +67,11 @@ jobs:
         java-version: 'openjdk8'
         architecture: 'x64'
 
-    - name: Download Android Emulator Image
+    - name: Setup Android Emulator
       run: |
+        sudo $ANDROID_HOME/tools/bin/avdmanager list device
         echo y | sudo $ANDROID_HOME/tools/bin/sdkmanager --verbose "${{ matrix.emu-version }}"
-        $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k "${{ matrix.emu-version }}" -c 1G -d 7 -f
+        $ANDROID_HOME/tools/bin/avdmanager create avd -n emu -k "${{ matrix.emu-version }}" -c 1G -d "${{ matrix.emu-device-id }}" -f
 
     - uses: actions/download-artifact@v2
 
