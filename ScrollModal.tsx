@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import Modal from 'react-native-modal/src';
 
@@ -9,11 +9,16 @@ interface Props {
 
 export const ScrollModal = (props: Props) => {
   const [contentOffset, setContentOffset] = useState({ x: 0, y: 0 });
+  const scrollRef = useRef<ScrollView>(null);
 
   return (
     <Modal
       testID={'modal'}
-      scrollTo={e => {
+      scrollTo={(e, propagated) => {
+        if (propagated) {
+          scrollRef.current?.scrollTo(e);
+        }
+
         if (typeof e.y === 'number') {
           setContentOffset({
             x: contentOffset.x || e.x,
@@ -29,6 +34,7 @@ export const ScrollModal = (props: Props) => {
       swipeDirection="down">
       <View style={styles.container} testID="scroll_modal_view">
         <ScrollView
+          ref={scrollRef}
           testID="scroll_view"
           scrollEventThrottle={16}
           contentOffset={contentOffset}

@@ -12,11 +12,14 @@ interface Props {
 }
 
 export class LegacyScrollModal extends React.Component<Props, State> {
+  scrollRef: React.RefObject<ScrollView>;
+
   constructor(props: Props) {
     super(props, {
       scrollOffset: null,
     });
     this.state = { scrollOffset: { x: 0, y: 0 } };
+    this.scrollRef = React.createRef();
   }
   handleOnScroll = (event: any) => {
     this.setState({
@@ -24,6 +27,8 @@ export class LegacyScrollModal extends React.Component<Props, State> {
     });
   };
   handleScrollTo = (event: any) => {
+    this.scrollRef.current?.scrollTo(event);
+
     this.setState({
       scrollOffset: {
         x: this.state.scrollOffset.x || event.x,
@@ -47,6 +52,7 @@ export class LegacyScrollModal extends React.Component<Props, State> {
         <View style={styles.scrollableModal}>
           <ScrollView
             testID="legacy_scroll_view"
+            ref={this.scrollRef}
             contentOffset={this.state.scrollOffset}
             onScroll={this.handleOnScroll}
             scrollEventThrottle={16}>

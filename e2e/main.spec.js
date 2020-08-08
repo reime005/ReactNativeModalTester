@@ -51,4 +51,16 @@ describe('Test App', () => {
 
     await expect(element(by.id('modal'))).toBeVisible();
   });
+
+  it('should keep image modal open when scrolling', async () => {
+    await expect(element(by.id('btn_image_scroll_modal_toggle'))).toBeVisible();
+    await element(by.id('btn_image_scroll_modal_toggle')).tap();
+
+    await expect(element(by.id('image_scroll_modal'))).toBeVisible();
+
+    await element(by.id('image_scroll_view')).scrollTo('bottom');
+    await element(by.id('image_scroll_view')).scrollTo('top');
+
+    await expect(element(by.id('image_scroll_modal'))).toBeVisible();
+  });
 });

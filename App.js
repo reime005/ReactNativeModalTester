@@ -10,6 +10,9 @@ import { Button, SafeAreaView, StyleSheet, View } from 'react-native';
 import { FlatListModal } from './FlatListModal';
 import { ScrollModal } from './ScrollModal';
 import { LegacyScrollModal } from './LegacyScrollModal';
+import { ImageScrollModal } from './ImageScrollModal';
+
+console.disableYellowBox = true;
 
 const App = () => {
   const [legacyScrollModalVisible, setLegacyScrollModalVisible] = useState(
@@ -17,12 +20,15 @@ const App = () => {
   );
   const [scrollModalVisible, setScrollModalVisible] = useState(false);
   const [flatListModalVisible, setFlatListModalVisible] = useState(false);
+  const [imageScrollModalVisible, setImageScrollModalVisible] = useState(false);
 
   const toggleLegacyScrollModal = () =>
     setLegacyScrollModalVisible(!legacyScrollModalVisible);
   const toggleScrollModal = () => setScrollModalVisible(!scrollModalVisible);
   const toggleFlatListModal = () =>
     setFlatListModalVisible(!flatListModalVisible);
+  const toggleImageScrollModal = () =>
+    setImageScrollModalVisible(!imageScrollModalVisible);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -42,6 +48,11 @@ const App = () => {
             visible={flatListModalVisible}
             onDismiss={toggleFlatListModal}
           />
+
+          <ImageScrollModal
+            visible={imageScrollModalVisible}
+            onDismiss={toggleImageScrollModal}
+          />
         </View>
 
         <Button
@@ -60,6 +71,12 @@ const App = () => {
           testID="btn_flatlist_modal_toggle"
           title="Toggle FlatList Modal"
           onPress={toggleFlatListModal}
+        />
+
+        <Button
+          testID="btn_image_scroll_modal_toggle"
+          title="Toggle Image Scroll Modal"
+          onPress={toggleImageScrollModal}
         />
       </View>
     </SafeAreaView>

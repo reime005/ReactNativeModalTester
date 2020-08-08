@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import Modal from 'react-native-modal/src';
 
@@ -9,11 +9,16 @@ interface Props {
 
 export const FlatListModal = (props: Props) => {
   const [contentOffset, setContentOffset] = useState({ x: 0, y: 0 });
+  const scrollRef = useRef<FlatList>(null);
 
   return (
     <Modal
       testID={'modal'}
-      scrollTo={e => {
+      scrollTo={(e, propagated) => {
+        if (propagated) {
+          scrollRef.current?.scrollToOffset({ offset: e.y || 0 });
+        }
+
         if (typeof e.y === 'number') {
           setContentOffset({
             x: contentOffset.x || e.x,
@@ -30,6 +35,7 @@ export const FlatListModal = (props: Props) => {
       onBackdropPress={props.onDismiss}>
       <View style={styles.container} testID="flatlist_modal_view">
         <FlatList
+          ref={scrollRef}
           testID="flatlist_view"
           scrollEventThrottle={16}
           contentOffset={contentOffset}
