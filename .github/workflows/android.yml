@@ -95,12 +95,14 @@ jobs:
         yarn install --frozen-lockfile
 
     - name: Start emulator
-      continue-on-error: true
-      timeout-minutes: 10
       run: |
         export PATH=$PATH:$ANDROID_HOME/platform-tools
         $ANDROID_HOME/emulator/emulator @emu &
-        adb wait-for-device; adb shell 'while [[ -z $(getprop sys.boot_completed) ]]; do sleep 1; done;'; adb shell wm dismiss-keyguard
+
+    - name: Wait for emulator to be ready
+      timeout-minutes: 10
+      run: |
+        sh ./wait-for-emulator.sh
 
     - name: Prepare test artifacts folder
       run: mkdir -p ./artifacts
