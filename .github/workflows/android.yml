@@ -100,7 +100,8 @@ jobs:
         $ANDROID_HOME/emulator/emulator @emu &
 
     - name: Wait for emulator to be ready
-      timeout-minutes: 10
+      continue-on-error: true
+      timeout-minutes: 15
       run: |
         sh ./wait-for-emulator.sh
 
