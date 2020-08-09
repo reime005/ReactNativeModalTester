@@ -49,8 +49,8 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
-        emu-version: ["system-images;android-25;default;x86_64", "system-images;android-28;google_apis;x86_64", "system-images;android-30;google_apis;x86_64"]
-        emu-device-id: ["pixel_xl", "7in WSVGA (Tablet)"]
+        emu-version: ["system-images;android-25;default;x86_64", "system-images;android-28;google_apis;x86_64", "system-images;android-29;google_apis;x86_64"]
+        emu-device-id: ["pixel_xl", "10.1in WXGA (Tablet)"]
 
     steps:
     - name: Checkout project
