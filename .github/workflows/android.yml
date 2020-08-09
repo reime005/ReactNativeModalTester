@@ -50,7 +50,7 @@ jobs:
     strategy:
       matrix:
         emu-version: ["system-images;android-25;default;x86_64", "system-images;android-28;google_apis;x86_64", "system-images;android-30;google_apis;x86_64"]
-        emu-device-id: ["pixel_xl", "10.1in WXGA (Tablet)"]
+        emu-device-id: ["pixel_xl", "7in WSVGA (Tablet)"]
 
     steps:
     - name: Checkout project
@@ -101,7 +101,7 @@ jobs:
 
     - name: Wait for emulator to be ready
       continue-on-error: true
-      timeout-minutes: 15
+      timeout-minutes: 25
       run: |
         sh ./wait-for-emulator.sh
 
