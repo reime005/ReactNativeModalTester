@@ -22,6 +22,11 @@ while [[ -z ${LAUNCHER_READY} ]]; do
         adb shell input keyevent KEYCODE_DPAD_DOWN
         adb shell input keyevent KEYCODE_DPAD_DOWN
         adb shell input keyevent KEYCODE_ENTER
+    *"Isn't responding"*)
+        echo "Detected an ANR! Dismissing..."
+        adb shell input keyevent KEYCODE_DPAD_DOWN
+        adb shell input keyevent KEYCODE_DPAD_DOWN
+        adb shell input keyevent KEYCODE_ENTER
     ;;
     *)
         echo "Waiting for launcher..."

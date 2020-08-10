@@ -18,6 +18,10 @@ beforeAll(async () => {
 
 beforeEach(async () => {
   await adapter.beforeEach();
+
+  let anrCloseButton = await element(by.label('Close app'));
+
+  anrCloseButton.tap();
 });
 
 afterAll(async () => {
