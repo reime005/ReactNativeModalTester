@@ -28,8 +28,19 @@ jobs:
         cd ios; pod install
         yarn detox build -c ios.sim.release
 
+    - name: Prepare test artifacts folder
+      run: mkdir -p ./artifacts
+
     - name: iOS test
-      timeout-minutes: 10
+      timeout-minutes: 15
       run: |
         npx detox clean-framework-cache && npx detox build-framework-cache
-        yarn detox test -c ios.sim.release
+        yarn detox test -c ios.sim.release --record-videos all
+
+    - name: Persist test artifacts
+      uses: actions/upload-artifact@v2
+      if: ${{ always() }}
+      with:
+        name: detox-artifacts
+        path: ./artifacts/
+
