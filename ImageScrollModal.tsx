@@ -107,7 +107,7 @@ export const ImageScrollModal = (props: Props) => {
               borderRadius: scrollBarBorderRadius + 2,
               backgroundColor: "rgba(255,255,255,.7)",
             }}
-          ></View>
+          />
         </View>
 
         <View
@@ -128,10 +128,11 @@ export const ImageScrollModal = (props: Props) => {
             onContentSizeChange={(_, height) => {
               setContentSize(height);
             }}
+            showsHorizontalScrollIndicator
             showsVerticalScrollIndicator={false}
             bounces={false}
             disableScrollViewPanResponder
-            onScroll={(e: any) => {
+            onScroll={(e: any) => {22222
               setContentOffset(e.nativeEvent.contentOffset);
             }}
             automaticallyAdjustContentInsets={false}
