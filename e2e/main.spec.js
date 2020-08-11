@@ -32,10 +32,10 @@ describe('Test App', () => {
     await expect(element(by.id('flatlist_view'))).toBeVisible();
 
     await expect(element(by.id('scroll_item_1'))).toBeVisible();
-    await expect(element(by.id('scroll_item_49'))).toBeNotVisible();
+    await expect(element(by.id('scroll_item_48'))).toBeNotVisible();
 
     await element(by.id('flatlist_view')).scrollTo('bottom');
-    await expect(element(by.id('scroll_item_49'))).toBeVisible();
+    await expect(element(by.id('scroll_item_48'))).toBeVisible();
   });
 
   it('should keep modal open when scrolling up', async () => {

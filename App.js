@@ -12,7 +12,7 @@ import { ScrollModal } from './ScrollModal';
 import { LegacyScrollModal } from './LegacyScrollModal';
 import { ImageScrollModal } from './ImageScrollModal';
 
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 
 const App = () => {
   const [legacyScrollModalVisible, setLegacyScrollModalVisible] = useState(

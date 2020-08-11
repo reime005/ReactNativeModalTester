@@ -33,6 +33,10 @@ describe('Test App', () => {
   it('should hide image list modal via swipe down', async () => {
     await element(by.id('btn_image_scroll_modal_toggle')).tap();
 
+    await waitFor(element(by.id('image_scroll_modal')))
+      .toBeVisible()
+      .withTimeout(1000);
+
     await expect(element(by.id('image_scroll_modal'))).toBeVisible();
     await expect(element(by.id('flatlist_modal_view'))).toBeVisible();
     await expect(element(by.id('pull_down_bar'))).toBeVisible();
