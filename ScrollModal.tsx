@@ -16,7 +16,7 @@ export const ScrollModal = (props: Props) => {
       testID={'modal'}
       scrollTo={(e, propagated) => {
         if (propagated) {
-          scrollRef.current?.scrollTo(e);
+          scrollRef.current?.scrollTo({ ...e, animated: true });
         }
 
         if (typeof e.y === 'number') {
@@ -27,6 +27,7 @@ export const ScrollModal = (props: Props) => {
         }
       }}
       scrollOffset={contentOffset.y}
+      scrollOffsetMax={100}
       propagateSwipe={true}
       coverScreen={true}
       isVisible={props.visible}

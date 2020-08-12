@@ -32,6 +32,7 @@ export const FlatListModal = (props: Props) => {
       isVisible={props.visible}
       onSwipeComplete={props.onDismiss}
       swipeDirection="down"
+      scrollOffsetMax={100}
       onBackdropPress={props.onDismiss}>
       <View style={styles.container} testID="flatlist_modal_view">
         <FlatList

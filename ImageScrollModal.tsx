@@ -42,7 +42,7 @@ export const ImageScrollModal = (props: Props) => {
       }}
       scrollTo={(e, propagated) => {
         if (propagated) {
-          scrollRef.current?.scrollTo(e);
+          scrollRef.current?.scrollTo({ ...e, animated: true });
         }
 
         if (typeof e.y === "number") {
@@ -61,6 +61,7 @@ export const ImageScrollModal = (props: Props) => {
       onSwipeComplete={onDismiss}
       swipeDirection="down"
       onBackdropPress={onDismiss}
+      scrollOffsetMax={500}
     >
       <View style={styles.container} testID="flatlist_modal_view">
         <View
