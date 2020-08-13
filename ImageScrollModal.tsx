@@ -61,7 +61,7 @@ export const ImageScrollModal = (props: Props) => {
       onSwipeComplete={onDismiss}
       swipeDirection="down"
       onBackdropPress={onDismiss}
-      scrollOffsetMax={contentSize - scrollViewHeight + 200}
+      scrollOffsetMax={1000}
     >
       <View style={styles.container} testID="flatlist_modal_view">
         <View
