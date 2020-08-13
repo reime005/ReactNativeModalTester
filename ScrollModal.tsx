@@ -19,6 +19,7 @@ export const ScrollModal = (props: Props) => {
       scrollTo={(e, propagated) => {
         if (propagated) {
           scrollRef.current?.scrollTo({ ...e, animated: true });
+          return;
         }
 
         if (typeof e.y === 'number') {

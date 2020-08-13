@@ -19,6 +19,7 @@ export const FlatListModal = (props: Props) => {
       scrollTo={(e, propagated) => {
         if (propagated) {
           scrollRef.current?.scrollToOffset({ offset: e.y || 0 });
+          return;
         }
 
         if (typeof e.y === 'number') {
