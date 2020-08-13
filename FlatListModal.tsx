@@ -29,7 +29,7 @@ export const FlatListModal = (props: Props) => {
         }
       }}
       scrollOffset={contentOffset.y}
-      scrollOffsetMax={contentSize - scrollViewHeight}
+      scrollOffsetMax={contentSize - scrollViewHeight + 200}
       propagateSwipe={true}
       coverScreen={false}
       isVisible={props.visible}
