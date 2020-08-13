@@ -10,6 +10,8 @@ interface Props {
 export const ScrollModal = (props: Props) => {
   const [contentOffset, setContentOffset] = useState({ x: 0, y: 0 });
   const scrollRef = useRef<ScrollView>(null);
+  const [contentSize, setContentSize] = useState(0);
+  const [scrollViewHeight, setScrollViewHeight] = useState(0);
 
   return (
     <Modal
@@ -27,7 +29,7 @@ export const ScrollModal = (props: Props) => {
         }
       }}
       scrollOffset={contentOffset.y}
-      scrollOffsetMax={100}
+      scrollOffsetMax={contentSize - scrollViewHeight}
       propagateSwipe={true}
       coverScreen={true}
       isVisible={props.visible}
@@ -42,6 +44,8 @@ export const ScrollModal = (props: Props) => {
           onScroll={(e: any) => {
             setContentOffset(e.nativeEvent.contentOffset);
           }}
+          onContentSizeChange={(w, h) => setContentSize(h)}
+          onLayout={e => setScrollViewHeight(e.nativeEvent.layout.height)}
           style={styles.scrollView}>
           {Array.from({ length: 50 }).map((el, idx) => (
             <Text key={idx} testID={`scroll_item_${idx}`}>

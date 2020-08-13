@@ -10,6 +10,8 @@ interface Props {
 export const FlatListModal = (props: Props) => {
   const [contentOffset, setContentOffset] = useState({ x: 0, y: 0 });
   const scrollRef = useRef<FlatList>(null);
+  const [contentSize, setContentSize] = useState(0);
+  const [scrollViewHeight, setScrollViewHeight] = useState(0);
 
   return (
     <Modal
@@ -27,12 +29,12 @@ export const FlatListModal = (props: Props) => {
         }
       }}
       scrollOffset={contentOffset.y}
+      scrollOffsetMax={contentSize - scrollViewHeight}
       propagateSwipe={true}
       coverScreen={false}
       isVisible={props.visible}
       onSwipeComplete={props.onDismiss}
       swipeDirection="down"
-      scrollOffsetMax={100}
       onBackdropPress={props.onDismiss}>
       <View style={styles.container} testID="flatlist_modal_view">
         <FlatList
@@ -40,6 +42,8 @@ export const FlatListModal = (props: Props) => {
           testID="flatlist_view"
           scrollEventThrottle={16}
           contentOffset={contentOffset}
+          onContentSizeChange={(w, h) => setContentSize(h)}
+          onLayout={e => setScrollViewHeight(e.nativeEvent.layout.height)}
           onScroll={(e: any) => {
             setContentOffset(e.nativeEvent.contentOffset);
           }}

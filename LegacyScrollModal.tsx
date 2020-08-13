@@ -47,7 +47,7 @@ export class LegacyScrollModal extends React.Component<Props, State> {
         swipeDirection={['down']}
         scrollTo={this.handleScrollTo}
         scrollOffset={this.state.scrollOffset.y}
-        scrollOffsetMax={400 - 300} // content height - ScrollView height
+        scrollOffsetMax={1000} // content height - ScrollView height
         style={styles.modal}>
         <View style={styles.scrollableModal}>
           <ScrollView
