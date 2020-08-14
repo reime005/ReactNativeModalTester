@@ -97,11 +97,10 @@ jobs:
     - name: Start emulator
       run: |
         export PATH=$PATH:$ANDROID_HOME/platform-tools
-        $ANDROID_HOME/emulator/emulator @emu &
+        $ANDROID_HOME/emulator/emulator @emu -partition-size 2048 -gpu on &
 
     - name: Wait for emulator to be ready
-      continue-on-error: true
-      timeout-minutes: 25
+      timeout-minutes: 35
       run: |
         sh ./wait-for-emulator.sh
 
