@@ -7,7 +7,7 @@ jobs:
     name: Build
     runs-on: macos-latest
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    timeout-minutes: 20
+    timeout-minutes: 25
 
     steps:
     - name: Checkout project
@@ -45,11 +45,11 @@ jobs:
     runs-on: macos-latest
     name: Test
     needs: build
-    timeout-minutes: 40
+    timeout-minutes: 55
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
-        emu-version: ["system-images;android-25;default;x86_64", "system-images;android-28;google_apis;x86_64", "system-images;android-29;google_apis;x86_64"]
+        emu-version: ["system-images;android-25;default;x86", "system-images;android-27;google_apis;x86", "system-images;android-29;google_apis;x86"]
         emu-device-id: ["pixel_xl", "10.1in WXGA (Tablet)"]
 
     steps:
@@ -108,7 +108,7 @@ jobs:
       run: mkdir -p ./artifacts
 
     - name: Test
-      timeout-minutes: 20
+      timeout-minutes: 15
       run: |
         export PATH=$PATH:$ANDROID_HOME/platform-tools
         yarn detox test -c android.emu.release --headless --record-videos all
