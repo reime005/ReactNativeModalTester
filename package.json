@@ -16,7 +16,7 @@
     "@types/react-native": "^0.61.12",
     "@types/react-test-renderer": "^16.9.2",
     "react": "16.9.0",
-    "react-native": "0.61.5",
+    "react-native": "0.62.3",
     "react-native-modal": "git://github.com/reime005/react-native-modal#38351ea",
     "typescript": "^3.7.5"
   },
